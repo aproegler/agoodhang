@@ -14,9 +14,55 @@ import ServiceArea from '../components/ServiceArea.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
+import { getCollection } from 'astro:content';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+
+function faqBodyText(body: string | undefined): string {
+  if (!body) return '';
+  return body.replace(/<!--[\s\S]*?-->/g, '').trim();
+}
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "A Good Hang",
+  "description": "Wallpaper sourcing, styling, and installation studio.",
+  "telephone": "+1-336-408-8479",
+  "areaServed": [
+    "Winston-Salem", "Clemmons", "Lewisville", "Kernersville",
+    "Greensboro", "High Point", "Summerfield",
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Winston-Salem",
+    "addressRegion": "NC",
+    "addressCountry": "US",
+  },
+  "url": "https://agoodhang.com",
+  "sameAs": ["https://instagram.com/agoodhangws"],
+};
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.data.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faqBodyText(f.body),
+    },
+  })),
+};
 ---
 
 <Base>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqPage)} />
+  </Fragment>
+
   <Nav />
   <main id="main">
     <Hero />
@@ -36,7 +82,6 @@ import Lightbox from '../components/Lightbox.astro';
 </Base>
 
 <script>
-  // Scroll-reveal intersection observer
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
