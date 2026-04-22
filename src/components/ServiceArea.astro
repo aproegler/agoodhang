@@ -1,6 +1,4 @@
 ---
-// <!-- TODO(margaret): confirm town list is accurate for your working radius -->
-
 const towns = [
   'Winston-Salem',
   'Clemmons',
@@ -8,12 +6,6 @@ const towns = [
   'Pfafftown',
   'Advance',
   'Kernersville',
-  'Walkertown',
-  'Greensboro',
-  'High Point',
-  'Summerfield',
-  'Oak Ridge',
-  'Jamestown',
 ];
 
 /*
@@ -29,12 +21,6 @@ const dots = [
   { name: 'Pfafftown',     cx:  78, cy: 167, r: 3.5, label: true,  lx:  68, ly: 163, anchor: 'end',    major: false },
   { name: 'Advance',       cx:  90, cy: 283, r: 3.5, label: true,  lx:  80, ly: 279, anchor: 'end',    major: false },
   { name: 'Kernersville',  cx: 305, cy: 175, r: 4,   label: true,  lx: 305, ly: 163, anchor: 'middle', major: false },
-  { name: 'Walkertown',    cx: 255, cy: 128, r: 3.5, label: true,  lx: 255, ly: 116, anchor: 'middle', major: false },
-  { name: 'Greensboro',    cx: 482, cy: 213, r: 5.5, label: true,  lx: 492, ly: 210, anchor: 'start',  major: true  },
-  { name: 'High Point',    cx: 343, cy: 298, r: 5,   label: true,  lx: 343, ly: 315, anchor: 'middle', major: true  },
-  { name: 'Summerfield',   cx: 407, cy: 105, r: 3.5, label: true,  lx: 417, ly: 102, anchor: 'start',  major: false },
-  { name: 'Oak Ridge',     cx: 337, cy: 136, r: 3.5, label: true,  lx: 347, ly: 133, anchor: 'start',  major: false },
-  { name: 'Jamestown',     cx: 394, cy: 275, r: 3.5, label: true,  lx: 404, ly: 272, anchor: 'start',  major: false },
 ];
 ---
 
@@ -44,12 +30,11 @@ const dots = [
       <div class="section-num">07</div>
       <h2 class="section-title" id="service-area-title">Where we <em>work.</em></h2>
       <p class="sa-lede">
-        Based in Winston-Salem, we work throughout the Triad — dining rooms in
-        Greensboro, powder rooms in Advance, ceilings in Kernersville. If you're
-        in one of these towns, we can be there.
+        Based in Winston-Salem, we work throughout the greater Forsyth County
+        area — powder rooms in Advance, ceilings in Kernersville, dining rooms
+        in Lewisville. If you're in one of these towns, we can be there.
       </p>
 
-      <!-- TODO(margaret): confirm town list -->
       <ul class="town-list" aria-label="Towns served">
         {towns.map((town) => (
           <li>{town}</li>
@@ -70,27 +55,21 @@ const dots = [
         aria-label="Stylized map of the Triad region showing A Good Hang's service area"
       >
         <!-- Service radius fill -->
-        <ellipse cx="270" cy="205" rx="230" ry="145"
+        <ellipse cx="190" cy="225" rx="150" ry="95"
           fill="#2C4A6B" fill-opacity="0.07"
           stroke="#2C4A6B" stroke-opacity="0.25"
           stroke-width="1" stroke-dasharray="6 4"
         />
 
-        <!-- Road lines — I-40 corridor (east–west) -->
+        <!-- Road lines — I-40 corridor (west through Winston-Salem to Kernersville) -->
         <path
-          d="M 40,195 C 80,193 140,191 200,190 S 260,182 305,175 S 420,203 482,213 L 540,218"
+          d="M 40,195 C 80,193 140,191 200,190 S 260,182 305,175 L 360,170"
           fill="none" stroke="#C8BFA9" stroke-width="1.5" stroke-linecap="round"
         />
 
-        <!-- Road lines — I-85 corridor (High Point → Greensboro diagonal) -->
+        <!-- Road lines — US-158 (Winston-Salem south toward Clemmons/Advance) -->
         <path
-          d="M 310,320 L 343,298 L 394,275 L 482,213"
-          fill="none" stroke="#C8BFA9" stroke-width="1.5" stroke-linecap="round"
-        />
-
-        <!-- Road lines — US-421 (Winston-Salem north toward Walkertown) -->
-        <path
-          d="M 200,190 L 225,158 L 255,128 L 270,96"
+          d="M 200,190 L 160,218 L 110,244 L 90,283"
           fill="none" stroke="#C8BFA9" stroke-width="1" stroke-linecap="round"
         />
 
