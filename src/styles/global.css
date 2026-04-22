@@ -1,0 +1,176 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg: #F5F0E6;
+  --bg-deep: #E8DFCE;
+  --ink: #152133;
+  --ink-soft: #3E4B60;
+  --ink-mute: #6E6C5E;   /* bumped from #8A8879 for WCAG AA on small text */
+  --accent: #2C4A6B;
+  --accent-deep: #1A3550;
+  --rule: #D4C9B3;
+  --paper: #FBF7EE;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+.serif {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+}
+
+/* ============================================================
+   SHARED BUTTON STYLES
+   ============================================================ */
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 15px 30px;
+  border-radius: 100px;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+.btn-primary .arrow { transition: transform 0.3s ease; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+.btn-link {
+  font-size: 15px;
+  color: var(--ink);
+  padding: 15px 8px;
+  position: relative;
+}
+.btn-link::after {
+  content: '';
+  position: absolute;
+  bottom: 10px; left: 8px; right: 8px;
+  height: 1px;
+  background: var(--ink);
+  transition: background 0.3s ease;
+}
+.btn-link:hover::after { background: var(--accent); }
+
+/* ============================================================
+   SHARED SECTION TYPOGRAPHY
+   ============================================================ */
+.section-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.section-lede {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 560px;
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  margin-bottom: 100px;
+  align-items: end;
+}
+
+@media (max-width: 900px) {
+  .section-header { grid-template-columns: 1fr; gap: 30px; margin-bottom: 60px; }
+}
+
+/* ============================================================
+   SCROLL REVEAL ANIMATION
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.shown { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   SKIP LINK (accessibility)
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  z-index: 9999;
+  overflow: visible;
+}
