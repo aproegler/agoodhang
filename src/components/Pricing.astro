@@ -1,0 +1,147 @@
+---
+---
+
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="pricing-inner">
+    <div class="pricing-header reveal">
+      <div class="section-num">05</div>
+      <h2 class="section-title" id="pricing-title">How pricing works.</h2>
+      <p class="pricing-lede">
+        Every job is quoted individually — rooms vary too much for a flat rate.
+        But here's roughly how we think about it.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="card-num" aria-hidden="true">i.</div>
+        <h3>Labor</h3>
+        <p>
+          Typically the largest line item. We price by complexity, not by the
+          hour: ceilings, stairwells, bookcase backs, and grasscloth with
+          visible seams cost more than a straightforward four-wall powder room.
+          You'll know the labor cost before we start.
+        </p>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="card-num" aria-hidden="true">ii.</div>
+        <h3>Materials</h3>
+        <p>
+          The paper is your budget, not ours. Rolls run anywhere from $80 to
+          $400 and up, and most rooms need four to ten rolls depending on
+          pattern repeat and wall area. We'll calculate exact yardage before
+          you order — no guessing, no overage surprises.
+        </p>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="card-num" aria-hidden="true">iii.</div>
+        <h3>Prep</h3>
+        <p>
+          Removing old wallpaper, skim-coating damaged walls, or priming for
+          grasscloth are quoted separately after a site visit when needed. Most
+          rooms in good shape don't need it. We'll tell you upfront if yours
+          does.
+        </p>
+      </div>
+    </div>
+
+    <div class="pricing-footer reveal">
+      <!-- TODO(margaret): uncomment and fill in pricing range if desired -->
+      <!-- <p class="pricing-range">Most powder rooms land between ${{ PRICING_RANGE }} all-in (labor + prep — materials are separate). Larger or more complex rooms are quoted individually.</p> -->
+      <a href="#contact" class="btn-primary">
+        Get a quote for your room
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: 120px 40px;
+    background: var(--bg);
+  }
+
+  .pricing-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .pricing-header {
+    margin-bottom: 80px;
+  }
+
+  .pricing-header .section-title {
+    margin-bottom: 24px;
+  }
+
+  .pricing-lede {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 64px;
+  }
+
+  .pricing-card {
+    background: var(--paper);
+    padding: 48px 40px 56px;
+    position: relative;
+  }
+
+  .card-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-mute);
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
+
+  .pricing-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 34px;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+
+  .pricing-card p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .pricing-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .pricing-range {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  @media (max-width: 900px) {
+    .pricing { padding: 80px 20px; }
+    .pricing-header { margin-bottom: 56px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+</style>
