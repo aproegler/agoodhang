@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import aboutImg from '../assets/projects/IMG_1032.jpeg';
+---
+
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="about-visual reveal">
+    <Image
+      src={aboutImg}
+      alt="A powder room covered in a dense acanthus leaf wallpaper in sage, slate, and coral — an A Good Hang installation."
+      widths={[480, 800, 1100]}
+      sizes="(max-width: 900px) 100vw, (max-width: 1400px) 42vw, 560px"
+      loading="lazy"
+      quality={85}
+    />
+    <div class="tag" aria-hidden="true">"The right paper, hung beautifully."</div>
+  </div>
+
+  <div class="about-text reveal">
+    <div class="section-num">03</div>
+    <h2 id="about-title">
+      A lifelong eye for <em>pattern</em> and a steady hand for the rest.
+    </h2>
+    <p>
+      A Good Hang is a small studio run by Margaret Proegler, a Winston-Salem
+      native with a long-held obsession with wallpaper: the heritage patterns,
+      the weird new indie designers, the grasscloth that catches light at exactly
+      the right angle.
+    </p>
+    <p>
+      What started as projects in her own home became projects for friends, then
+      friends-of-friends, and now a growing portfolio across the Triad. Each job
+      is personal. Margaret measures every room herself, hangs every roll herself,
+      and is usually the one who helped pick the paper in the first place.
+    </p>
+    <p>
+      The name is a little double-meaning: a good wallpaper hang, yes, but also,
+      hopefully, a good hang while she's in your home.
+    </p>
+    <div class="signature">
+      Margaret Proegler
+      <small>Founder · A Good Hang</small>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 160px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+  }
+  .about-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+  .tag {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 28px 36px;
+    border-radius: 3px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: 220px;
+    box-shadow: 0 20px 40px -10px rgba(44, 74, 107, 0.35);
+  }
+
+  .about-text h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 4.5vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 36px;
+  }
+  .about-text h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+  .about-text p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+
+  .signature {
+    margin-top: 40px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--ink);
+    font-weight: 300;
+  }
+  .signature small {
+    display: block;
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  @media (max-width: 900px) {
+    .about {
+      padding: 80px 20px;
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+    .tag { bottom: -16px; right: -8px; padding: 20px 24px; font-size: 17px; }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+const steps = [
+  {
+    num: 'Step 01',
+    title: 'Say hello',
+    body: 'Send photos of the room, a rough idea of what you want it to feel like, and any paper you've already been eyeing. A call or a text is usually enough.',
+  },
+  {
+    num: 'Step 02',
+    title: 'Source & sample',
+    body: 'Margaret proposes a tight set of options, usually three to five, orders physical samples, and walks through them in person or on FaceTime.',
+  },
+  {
+    num: 'Step 03',
+    title: 'Measure & order',
+    body: 'Once the paper is chosen, we measure the room, calculate the right yardage (with repeat included), and place the order. Lead times are typically 7 to 14 days.',
+  },
+  {
+    num: 'Step 04',
+    title: 'Hang',
+    body: 'Most rooms take a single day. Complex jobs — ceilings, bookcases, large spaces — may take two. We leave the room clean and ready to live in.',
+  },
+];
+---
+
+<section class="process" id="process" aria-labelledby="process-title">
+  <div class="process-inner">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-num">04</div>
+        <h2 class="section-title" id="process-title">
+          From <em>first text</em> to finished room.
+        </h2>
+      </div>
+      <p class="section-lede">
+        Most projects take two to four weeks from first conversation to installed
+        paper, depending on lead times from the manufacturer. Here's roughly how
+        it goes.
+      </p>
+    </div>
+
+    <ol class="steps" role="list">
+      {steps.map((step) => (
+        <li class="step reveal">
+          <div class="step-num">{step.num}</div>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding: 120px 40px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .process-inner { max-width: 1400px; margin: 0 auto; }
+
+  /* Override shared section tokens for dark bg */
+  .process .section-title { color: var(--paper); }
+  .process .section-lede  { color: rgba(251, 247, 238, 0.7); }
+  .process .section-num   { color: #C9B989; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+    list-style: none;
+  }
+
+  .step {
+    padding-top: 30px;
+    border-top: 1px solid rgba(251, 247, 238, 0.2);
+    position: relative;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 40px; height: 1px;
+    background: #C9B989;
+  }
+
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #C9B989;
+    margin-bottom: 16px;
+  }
+
+  .step h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .step p {
+    color: rgba(251, 247, 238, 0.75);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .process { padding: 70px 20px; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
