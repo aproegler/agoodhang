@@ -1,0 +1,127 @@
+---
+---
+
+<section class="services" id="services" aria-labelledby="services-title">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-num">01</div>
+      <h2 class="section-title" id="services-title">Three parts, <em>one studio.</em></h2>
+    </div>
+    <p class="section-lede">
+      Wallpaper is having a moment, but choosing it, ordering the right yardage,
+      and hanging it without seams or bubbles is genuinely hard. We handle all
+      three, so you don't end up with a half-finished project or a roll you're
+      afraid to open.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service reveal">
+      <span class="service-num" aria-hidden="true">i.</span>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <circle cx="20" cy="20" r="12"/>
+        <path d="M30 30 L42 42"/>
+        <circle cx="20" cy="20" r="4"/>
+      </svg>
+      <h3>Source.</h3>
+      <p>
+        Margaret has a working knowledge of the wallpaper world — from heritage
+        houses like Morris &amp; Co. and Schumacher to independent designers and
+        grasscloth specialists. Send a mood, a room, or a Pinterest board. You'll
+        get real options, not a link dump.
+      </p>
+    </div>
+
+    <div class="service reveal">
+      <span class="service-num" aria-hidden="true">ii.</span>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M8 40 L24 8 L40 40 Z"/>
+        <path d="M14 30 L34 30"/>
+      </svg>
+      <h3>Style.</h3>
+      <p>
+        Scale, light, pattern repeat, and existing trim all matter more than a
+        swatch can tell you. We help you narrow a field of ten to a confident
+        choice of one, and flag which walls, ceilings, or nooks the paper will
+        actually flatter.
+      </p>
+    </div>
+
+    <div class="service reveal">
+      <span class="service-num" aria-hidden="true">iii.</span>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M8 8 L40 8 L40 40 L8 40 Z"/>
+        <path d="M8 16 L40 16"/>
+        <path d="M16 16 L16 40"/>
+        <path d="M24 4 L24 12"/>
+      </svg>
+      <h3>Hang.</h3>
+      <p>
+        The part most installers don't want: ceilings, bookcase backs, powder
+        rooms with a dozen fixtures, grasscloth that shows every seam. This is
+        where the job is actually won or lost, and it's the part we love most.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 140px 40px 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .service {
+    background: var(--bg);
+    padding: 50px 40px 60px;
+    position: relative;
+    transition: background 0.4s ease;
+  }
+  .service:hover { background: var(--paper); }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 36px;
+    color: var(--accent);
+  }
+
+  .service h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 36px;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .service p {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .service-num {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .services { padding: 80px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
