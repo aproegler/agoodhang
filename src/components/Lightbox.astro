@@ -1,0 +1,214 @@
+---
+---
+
+<!-- Lightbox overlay — opened by gallery item buttons -->
+<div
+  id="lightbox"
+  class="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image viewer"
+  aria-hidden="true"
+>
+  <button class="lb-close" id="lb-close" aria-label="Close image viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M18 6 6 18M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <button class="lb-arrow lb-prev" id="lb-prev" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+
+  <div class="lb-stage">
+    <img id="lb-img" src="" alt="" class="lb-img" />
+    <div class="lb-caption" id="lb-caption" aria-live="polite"></div>
+  </div>
+
+  <button class="lb-arrow lb-next" id="lb-next" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const lightbox  = document.getElementById('lightbox')!;
+  const lbImg     = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCaption = document.getElementById('lb-caption')!;
+  const lbClose   = document.getElementById('lb-close')!;
+  const lbPrev    = document.getElementById('lb-prev')!;
+  const lbNext    = document.getElementById('lb-next')!;
+
+  // Collect all gallery trigger buttons in DOM order
+  const triggers  = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lightbox]'));
+  let current     = 0;
+  let lastFocus: HTMLElement | null = null;
+
+  function show(index: number) {
+    current = (index + triggers.length) % triggers.length;
+    const btn = triggers[current];
+    // Use the full-res src from the <img> inside the button
+    const thumbImg = btn.querySelector('img');
+    // Build the largest srcset entry as the full-res URL
+    const srcset = thumbImg?.getAttribute('srcset') ?? '';
+    const fullSrc = srcset
+      ? srcset.split(',').map(s => s.trim().split(' ')).sort((a, b) => parseInt(b[1]) - parseInt(a[1]))[0][0]
+      : (thumbImg?.src ?? '');
+
+    lbImg.src = fullSrc;
+    lbImg.alt = btn.dataset.title ?? '';
+    const title   = btn.dataset.title ?? '';
+    const caption = btn.dataset.caption ?? '';
+    lbCaption.textContent = caption ? `${title} — ${caption}` : title;
+
+    lbPrev.style.visibility = triggers.length > 1 ? 'visible' : 'hidden';
+    lbNext.style.visibility = triggers.length > 1 ? 'visible' : 'hidden';
+  }
+
+  function open(index: number) {
+    lastFocus = document.activeElement as HTMLElement;
+    show(index);
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lightbox.addEventListener('transitionend', () => {
+      lbImg.src = '';
+    }, { once: true });
+    lastFocus?.focus();
+  }
+
+  // Open on gallery item click
+  triggers.forEach((btn, i) => {
+    btn.addEventListener('click', () => open(i));
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click',  () => show(current - 1));
+  lbNext.addEventListener('click',  () => show(current + 1));
+
+  // Click backdrop to close
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+
+  // Focus trap
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(
+      lightbox.querySelectorAll<HTMLElement>('button:not([disabled])')
+    );
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(21, 33, 51, 0.96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lb-stage {
+    max-width: min(90vw, 1200px);
+    max-height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lb-img {
+    max-width: 100%;
+    max-height: calc(90dvh - 52px);
+    object-fit: contain;
+    border-radius: 3px;
+    display: block;
+  }
+
+  .lb-caption {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(251, 247, 238, 0.7);
+    text-align: center;
+  }
+
+  /* Close button */
+  .lb-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lb-close svg { width: 20px; height: 20px; }
+  .lb-close:hover,
+  .lb-close:focus-visible { background: rgba(255,255,255,0.2); }
+
+  /* Arrow buttons */
+  .lb-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lb-arrow svg { width: 22px; height: 22px; }
+  .lb-arrow:hover,
+  .lb-arrow:focus-visible { background: rgba(255,255,255,0.18); }
+  .lb-prev { left: 20px; }
+  .lb-next { right: 20px; }
+
+  :focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
+
+  @media (max-width: 600px) {
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+    .lb-close { top: 12px; right: 12px; }
+  }
+</style>

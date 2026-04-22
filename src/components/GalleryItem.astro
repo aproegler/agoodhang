@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  sizes: string;
+  eager?: boolean;
+}
+
+const { project, sizes, eager = false } = Astro.props;
+const { title, caption, image, alt } = project.data;
+---
+
+<button
+  class="gallery-btn"
+  data-lightbox
+  data-title={title}
+  data-caption={caption}
+  aria-label={`View ${title} — ${caption}`}
+>
+  <Image
+    src={image}
+    alt={alt}
+    widths={[400, 800, 1200]}
+    sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'}
+    quality={85}
+  />
+  <div class="meta" aria-hidden="true">
+    <h4>{title}</h4>
+    <span>{caption}</span>
+  </div>
+</button>
+
+<style>
+  .gallery-btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: var(--rule);
+  }
+
+  .gallery-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+  }
+  .gallery-btn:hover img,
+  .gallery-btn:focus-visible img { transform: scale(1.04); }
+
+  .meta {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(21, 33, 51, 0.75), transparent);
+    color: var(--paper);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: left;
+  }
+  .gallery-btn:hover .meta,
+  .gallery-btn:focus-visible .meta { opacity: 1; }
+
+  .meta h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .meta span {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>

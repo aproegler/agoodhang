@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import GalleryItem from './GalleryItem.astro';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Column span + aspect ratio for each grid slot
+const GRID_MAP = {
+  g1:  { cols: 7, aspect: '4/3', wide: true  },
+  g2:  { cols: 5, aspect: '3/4', wide: false },
+  g3:  { cols: 4, aspect: '3/4', wide: false },
+  g4:  { cols: 4, aspect: '3/4', wide: false },
+  g5:  { cols: 4, aspect: '3/4', wide: false },
+  g6:  { cols: 5, aspect: '3/4', wide: false },
+  g7:  { cols: 7, aspect: '4/3', wide: true  },
+  g8:  { cols: 4, aspect: '3/4', wide: false },
+  g9:  { cols: 4, aspect: '3/4', wide: false },
+  g10: { cols: 4, aspect: '3/4', wide: false },
+} as const;
+
+function sizes(slot: keyof typeof GRID_MAP) {
+  return GRID_MAP[slot].wide
+    ? '(max-width: 900px) 100vw, (max-width: 1400px) 58vw, 820px'
+    : '(max-width: 900px) 50vw, (max-width: 1400px) 40vw, 560px';
+}
+---
+
+<section class="portfolio" id="work" aria-labelledby="portfolio-title">
+  <div class="portfolio-header reveal">
+    <div>
+      <div class="section-num">02</div>
+      <h2 class="section-title" id="portfolio-title">A decade of <em>rooms.</em></h2>
+    </div>
+    <p class="section-lede">
+      Winston-Salem homes — dining rooms, bathrooms, hallways, and a few
+      ceilings. Every pattern here was chosen with the homeowner and installed
+      by hand.
+    </p>
+  </div>
+
+  <div class="gallery">
+    {projects.map((project) => {
+      const slot = project.data.gridSlot;
+      const { aspect } = GRID_MAP[slot];
+      return (
+        <div
+          class={`gallery-item ${slot} reveal`}
+          style={`aspect-ratio: ${aspect};`}
+        >
+          <GalleryItem project={project} sizes={sizes(slot)} />
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    padding: 120px 0 140px;
+    background: var(--bg-deep);
+  }
+
+  .portfolio-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: end;
+  }
+
+  .gallery {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+
+  /* Grid slots — span widths */
+  .g1  { grid-column: span 7; }
+  .g2  { grid-column: span 5; }
+  .g3  { grid-column: span 4; }
+  .g4  { grid-column: span 4; }
+  .g5  { grid-column: span 4; }
+  .g6  { grid-column: span 5; }
+  .g7  { grid-column: span 7; }
+  .g8  { grid-column: span 4; }
+  .g9  { grid-column: span 4; }
+  .g10 { grid-column: span 4; }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--rule);
+  }
+
+  @media (max-width: 900px) {
+    .portfolio { padding: 70px 0 90px; }
+    .portfolio-header {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 20px;
+      margin-bottom: 40px;
+    }
+    .gallery {
+      padding: 0 20px;
+      gap: 10px;
+    }
+    /* All tall items → 2-up */
+    .gallery-item { grid-column: span 6 !important; aspect-ratio: 3/4 !important; }
+    /* Wide items → full width */
+    .g1, .g7 { grid-column: span 12 !important; aspect-ratio: 4/3 !important; }
+  }
+</style>
