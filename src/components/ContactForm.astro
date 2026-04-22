@@ -1,0 +1,261 @@
+---
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact-grid">
+
+    <div class="contact-intro reveal">
+      <div class="section-num">08</div>
+      <h2 id="contact-title">Let's talk about your <em>walls.</em></h2>
+      <p>
+        Tell us about the room. Ceiling, powder room, full dining room, tricky
+        stairwell — we want to hear it. Margaret reads every message.
+      </p>
+
+      <ul class="direct-list" role="list">
+        <li>
+          <a href="tel:+13364088479" class="direct-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.18 12.9a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span class="label">Call / Text</span>
+            <span class="value">336·408·8479</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://instagram.com/agoodhangws" target="_blank" rel="noopener noreferrer" class="direct-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            <span class="label">Instagram</span>
+            <span class="value">@agoodhangws</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <form
+      name="inquiry"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      action="/thanks"
+      class="inquiry-form reveal"
+      novalidate
+    >
+      <input type="hidden" name="form-name" value="inquiry" />
+
+      <!-- Honeypot — hidden from humans, catches bots -->
+      <p class="bot-trap" aria-hidden="true">
+        <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
+      <div class="field">
+        <label for="name">Your name <span class="req" aria-label="required">*</span></label>
+        <input type="text" id="name" name="name" required autocomplete="name" />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email <span class="req" aria-label="required">*</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="room">What's the room?</label>
+        <select id="room" name="room">
+          <option value="">— Select one —</option>
+          <option>Powder room / bathroom</option>
+          <option>Dining room</option>
+          <option>Bedroom / nursery</option>
+          <option>Entry or hallway</option>
+          <option>Ceiling</option>
+          <option>Built-in / bookcase</option>
+          <option>Multiple rooms</option>
+          <option>Still figuring it out</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Tell us more</label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Square footage if you know it, paper you're considering, timeline, anything relevant…"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        Send inquiry
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
+
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 140px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .contact-intro h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+  }
+  .contact-intro h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+  .contact-intro p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 44px;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  /* Direct contact list */
+  .direct-list { list-style: none; display: flex; flex-direction: column; }
+
+  .direct-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--rule);
+    transition: color 0.3s ease;
+  }
+  .direct-list li:last-child .direct-item { border-bottom: 1px solid var(--rule); }
+  .direct-item:hover { color: var(--accent); }
+
+  .icon { width: 22px; height: 22px; flex-shrink: 0; color: var(--accent); }
+
+  .label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-right: auto;
+    width: 110px;
+  }
+
+  .value {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  /* Form */
+  .inquiry-form {
+    background: var(--paper);
+    padding: 48px 44px;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+
+  .bot-trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .field { margin-bottom: 22px; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .req { color: var(--accent); }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    transition: border-color 0.3s ease;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+  }
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 18px;
+    border: none;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-submit:hover,
+  .btn-submit:focus-visible { background: var(--accent); }
+  .btn-submit:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .contact { padding: 70px 20px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .inquiry-form { padding: 32px 24px; }
+    .field-row { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
