@@ -5,7 +5,6 @@ import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
 import Services from '../components/Services.astro';
 import Gallery from '../components/Gallery.astro';
-import Lightbox from '../components/Lightbox.astro';
 import Testimonials from '../components/Testimonials.astro';
 import About from '../components/About.astro';
 import Process from '../components/Process.astro';
@@ -14,6 +13,7 @@ import FAQ from '../components/FAQ.astro';
 import ServiceArea from '../components/ServiceArea.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
+import Lightbox from '../components/Lightbox.astro';
 ---
 
 <Base>
@@ -32,6 +32,21 @@ import Footer from '../components/Footer.astro';
     <ContactForm />
   </main>
   <Footer />
-  </main>
   <Lightbox />
 </Base>
+
+<script>
+  // Scroll-reveal intersection observer
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('shown');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
