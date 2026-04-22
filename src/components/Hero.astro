@@ -1,0 +1,163 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/projects/IMG_5980.jpeg';
+---
+
+<section class="hero" id="top">
+  <div class="hero-text">
+    <h1>
+      <span>Wallpaper is</span>
+      <span>having a</span>
+      <span class="italic">moment.</span>
+    </h1>
+    <p class="hero-sub">
+      A small wallpaper studio in Winston-Salem. Sourcing, styling, and expert
+      installation — from powder rooms to full dining rooms, ceilings and all
+      the hard corners in between.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary">
+        Book a consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="#work" class="btn-link">See the portfolio</a>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <Image
+      src={heroImg}
+      alt="A dining room wrapped in a blue-and-cream tree toile wallpaper, with a chandelier and antique chairs — installed by A Good Hang."
+      widths={[640, 960, 1280, 1920]}
+      sizes="(max-width: 960px) 100vw, 50vw"
+      loading="eager"
+      fetchpriority="high"
+      quality={85}
+    />
+    <div class="hero-caption" aria-hidden="true">Recent work</div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    padding: 120px 40px 60px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+  }
+
+  /* ---- Text column ---- */
+  .hero-text { position: relative; z-index: 2; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(52px, 8.5vw, 128px);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    font-variation-settings: "opsz" 144;
+  }
+  h1 .italic {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  h1 span {
+    display: block;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+  }
+  h1 span:nth-child(1) { animation-delay: 0.2s; }
+  h1 span:nth-child(2) { animation-delay: 0.35s; }
+  h1 span:nth-child(3) { animation-delay: 0.5s; }
+
+  .hero-sub {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 460px;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s ease forwards;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s 0.85s ease forwards;
+  }
+
+  /* ---- Image column ---- */
+  .hero-image {
+    position: relative;
+    height: 78vh;
+    min-height: 540px;
+    opacity: 0;
+    animation: scaleIn 1.2s 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px -20px rgba(27, 26, 23, 0.25);
+  }
+  .hero-image::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: -24px;
+    right: 24px; bottom: -24px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .hero-caption {
+    position: absolute;
+    bottom: -40px; left: -24px;
+    background: var(--paper);
+    padding: 10px 16px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-radius: 3px;
+    box-shadow: 0 6px 20px -6px rgba(27, 26, 23, 0.12);
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    h1 span,
+    .hero-sub,
+    .hero-cta-row,
+    .hero-image {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 100px 20px 60px;
+      gap: 40px;
+    }
+    .hero-image {
+      height: 65vh;
+      min-height: 400px;
+    }
+    .hero-image::before {
+      top: 16px; left: -12px;
+      right: 12px; bottom: -16px;
+    }
+  }
+</style>
