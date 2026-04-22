@@ -1,0 +1,200 @@
+---
+// <!-- TODO(margaret): confirm town list is accurate for your working radius -->
+
+const towns = [
+  'Winston-Salem',
+  'Clemmons',
+  'Lewisville',
+  'Pfafftown',
+  'Advance',
+  'Kernersville',
+  'Walkertown',
+  'Greensboro',
+  'High Point',
+  'Summerfield',
+  'Oak Ridge',
+  'Jamestown',
+];
+
+/*
+  SVG coordinates derived from approximate lat/lon for each town.
+  viewBox: "0 0 560 380"
+  lon range: 79.70–80.52 W (east→right, west→left)
+  lat range: 35.88–36.32 N (north→top, south→bottom)
+*/
+const dots = [
+  { name: 'Winston-Salem', cx: 200, cy: 190, r: 7,   label: true,  lx: 200, ly: 208, anchor: 'middle', major: true  },
+  { name: 'Clemmons',      cx: 110, cy: 244, r: 3.5, label: true,  lx: 100, ly: 258, anchor: 'end',    major: false },
+  { name: 'Lewisville',    cx:  85, cy: 190, r: 3.5, label: true,  lx:  75, ly: 186, anchor: 'end',    major: false },
+  { name: 'Pfafftown',     cx:  78, cy: 167, r: 3.5, label: true,  lx:  68, ly: 163, anchor: 'end',    major: false },
+  { name: 'Advance',       cx:  90, cy: 283, r: 3.5, label: true,  lx:  80, ly: 279, anchor: 'end',    major: false },
+  { name: 'Kernersville',  cx: 305, cy: 175, r: 4,   label: true,  lx: 305, ly: 163, anchor: 'middle', major: false },
+  { name: 'Walkertown',    cx: 255, cy: 128, r: 3.5, label: true,  lx: 255, ly: 116, anchor: 'middle', major: false },
+  { name: 'Greensboro',    cx: 482, cy: 213, r: 5.5, label: true,  lx: 492, ly: 210, anchor: 'start',  major: true  },
+  { name: 'High Point',    cx: 343, cy: 298, r: 5,   label: true,  lx: 343, ly: 315, anchor: 'middle', major: true  },
+  { name: 'Summerfield',   cx: 407, cy: 105, r: 3.5, label: true,  lx: 417, ly: 102, anchor: 'start',  major: false },
+  { name: 'Oak Ridge',     cx: 337, cy: 136, r: 3.5, label: true,  lx: 347, ly: 133, anchor: 'start',  major: false },
+  { name: 'Jamestown',     cx: 394, cy: 275, r: 3.5, label: true,  lx: 404, ly: 272, anchor: 'start',  major: false },
+];
+---
+
+<section class="service-area" id="service-area" aria-labelledby="service-area-title">
+  <div class="sa-inner">
+    <div class="sa-text reveal">
+      <div class="section-num">07</div>
+      <h2 class="section-title" id="service-area-title">Where we <em>work.</em></h2>
+      <p class="sa-lede">
+        Based in Winston-Salem, we work throughout the Triad — dining rooms in
+        Greensboro, powder rooms in Advance, ceilings in Kernersville. If you're
+        in one of these towns, we can be there.
+      </p>
+
+      <!-- TODO(margaret): confirm town list -->
+      <ul class="town-list" aria-label="Towns served">
+        {towns.map((town) => (
+          <li>{town}</li>
+        ))}
+      </ul>
+
+      <p class="sa-note">
+        Not sure if you're in our area?{' '}
+        <a href="#contact" class="sa-link">Just ask.</a>
+      </p>
+    </div>
+
+    <div class="sa-map reveal" aria-hidden="true">
+      <svg
+        viewBox="0 0 560 380"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Stylized map of the Triad region showing A Good Hang's service area"
+      >
+        <!-- Service radius fill -->
+        <ellipse cx="270" cy="205" rx="230" ry="145"
+          fill="#2C4A6B" fill-opacity="0.07"
+          stroke="#2C4A6B" stroke-opacity="0.25"
+          stroke-width="1" stroke-dasharray="6 4"
+        />
+
+        <!-- Road lines — I-40 corridor (east–west) -->
+        <path
+          d="M 40,195 C 80,193 140,191 200,190 S 260,182 305,175 S 420,203 482,213 L 540,218"
+          fill="none" stroke="#C8BFA9" stroke-width="1.5" stroke-linecap="round"
+        />
+
+        <!-- Road lines — I-85 corridor (High Point → Greensboro diagonal) -->
+        <path
+          d="M 310,320 L 343,298 L 394,275 L 482,213"
+          fill="none" stroke="#C8BFA9" stroke-width="1.5" stroke-linecap="round"
+        />
+
+        <!-- Road lines — US-421 (Winston-Salem north toward Walkertown) -->
+        <path
+          d="M 200,190 L 225,158 L 255,128 L 270,96"
+          fill="none" stroke="#C8BFA9" stroke-width="1" stroke-linecap="round"
+        />
+
+        <!-- Town dots + labels -->
+        {dots.map((d) => (
+          <>
+            <circle
+              cx={d.cx} cy={d.cy} r={d.r}
+              fill={d.major ? '#2C4A6B' : '#6E6C5E'}
+            />
+            {d.label && (
+              <text
+                x={d.lx} y={d.ly}
+                text-anchor={d.anchor}
+                font-size={d.major ? '11' : '9.5'}
+                font-family="Inter, sans-serif"
+                font-weight={d.major ? '500' : '400'}
+                letter-spacing="0.06em"
+                fill={d.major ? '#152133' : '#6E6C5E'}
+                text-transform="uppercase"
+              >{d.name.toUpperCase()}</text>
+            )}
+          </>
+        ))}
+
+        <!-- Winston-Salem pulse ring -->
+        <circle cx="200" cy="190" r="13"
+          fill="none" stroke="#2C4A6B" stroke-opacity="0.2" stroke-width="1"
+        />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-area {
+    padding: 120px 40px;
+    background: var(--bg);
+    border-top: 1px solid var(--rule);
+  }
+
+  .sa-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .sa-lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
+    max-width: 440px;
+  }
+
+  .town-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 0;
+    margin-bottom: 36px;
+    columns: 2;
+  }
+
+  .town-list li {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--rule);
+    break-inside: avoid;
+  }
+  .town-list li::before {
+    content: '—';
+    color: var(--accent);
+    margin-right: 10px;
+    font-size: 12px;
+  }
+
+  .sa-note {
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  .sa-link {
+    color: var(--accent);
+    border-bottom: 1px solid currentColor;
+    transition: color 0.2s ease;
+  }
+  .sa-link:hover { color: var(--accent-deep); }
+
+  /* Map */
+  .sa-map svg {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 900px) {
+    .service-area { padding: 80px 20px; }
+    .sa-inner { grid-template-columns: 1fr; gap: 56px; }
+    .sa-map { order: -1; max-width: 480px; }
+  }
+</style>
