@@ -3,6 +3,4 @@ question: "How long does installation take?"
 order: 3
 ---
 
-<!-- DRAFT: review and edit before publishing -->
-
-Most rooms take a single day. A simple powder room can be done in a few hours; a large dining room or a room with a ceiling typically takes a full day. More complex projects — stairwells, bookcases, multiple rooms — may take two days. We'll give you a realistic timeline when we quote the job, so you can plan accordingly.
+You can't rush perfection! The real answer is that it varies based on the size and complexity of the job. A small powder room could take only a couple of hours while a larger room with more angles and corners could take a couple of days.
